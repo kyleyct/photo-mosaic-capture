@@ -31,11 +31,12 @@ function loadOverlays() {
     for (let i = 0; i < MAX_PHOTOS; i++) {
       const img = new Image();
       // 檔名依你的實際情況修改：
-      const num = String(i + 1).padStart(2, "0");
-      img.src = `overlays/overlay-${num}.jpg`;
+const row = Math.floor(i / COLS) + 1;
+      const col = (i % COLS) + 1;
+      img.src = `overlays/row-${row}-column-${col}.jpg`;      img.src = `overlays/overlay-${num}.jpg`;
 
       img.onload = () => {
-        loaded++;
+        
         if (loaded === MAX_PHOTOS) resolve();
       };
       img.onerror = (e) => {
