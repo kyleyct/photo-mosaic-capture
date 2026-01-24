@@ -33,7 +33,7 @@ function loadOverlays() {
       // 檔名依你的實際情況修改：
 const row = Math.floor(i / COLS) + 1;
       const col = (i % COLS) + 1;
-      img.src = `overlays/row-${row}-column-${col}.png`;      img.src = `overlays/overlay-${num}.png`;
+      img.src = `overlays/row-${row}-column-${col}.png`;
 
       img.onload = () => {
         
