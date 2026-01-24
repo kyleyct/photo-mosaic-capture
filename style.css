@@ -69,11 +69,10 @@ button:disabled {
 #mosaicCanvas {
   width: 100%;
   max-width: 400px;
-    aspect-ratio: 2/3;
+    aspect-ratio: 3/2;
   display: block;
   margin: 8px auto 16px;
   background: #ddd;
-}
 
 /* 確認界面樣式 */
 .confirmation {
@@ -190,4 +189,32 @@ button:disabled {
 
 .menu-dropdown button:disabled:hover {
   background-color: transparent;
+}
+
+/* 使用說明樣式 */
+.instructions {
+  background-color: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.instructions p {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.instructions ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.instructions li {
+  margin: 6px 0;
+  font-size: 16px;
+  line-height: 1.5;
 }
