@@ -115,13 +115,15 @@ startCameraBtn.addEventListener("click", async () => {
 
 // ---------- 拍照並顯示確認界面 ----------
 120
-("click", () => {
+captureBtn.addEventListener(138
+  ("click", () => {
   if (currentIndex >= MAX_PHOTOS) return;
 
     const w = video.videoWidth;
       const h = video.videoHeight;
         // 繪製影片畫面
-          photoCanvas.width = 1800; // 4R 照片橫向寬度 (6英寸 x 300 DPI)
+          photoCanvas.width = 1800; // 4R 照片橫向寬度 (6英寸 x 300 DPI)118
+
     photoCanvas.height = 1200; // 4R 照片橫向高度 (4英寸 x 300 DPI)
     
   // 繪製影片畫面，按比例縮放並置中
@@ -134,12 +136,12 @@ startCameraBtn.addEventListener("click", async () => {
   // 繪製 overlay
   photoCtx.globalAlpha = OVERLAY_ALPHA;
   const overlay = overlays[currentIndex];
-    const drawW = Math.min(1800, 1200);  // 使用固定的 4R 尺寸const drawW 
+    const drawW = Math.min(1800, 1200);  // 使用固定的 4R
   const drawH = drawW;
-  const dx = (w - drawW) / 2;
-  const dy = (h - drawH) / 2;
+  const dx = (1800 - drawW) / 2;
+  const dy = (1200 - drawH) / 2;
   photoCtx.drawImage(overlay, dx, dy, drawW, drawH);
-  photoCtx.restore();
+    photoCtx.globalAlpha = 1.0; // 重置透明度
 
   // 儲存照片數據
   currentCapturedPhoto = photoCanvas.toDataURL("image/jpeg", 0.9);
