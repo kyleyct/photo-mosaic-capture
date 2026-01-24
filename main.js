@@ -114,9 +114,7 @@ startCameraBtn.addEventListener("click", async () => {
 });
 
 // ---------- 拍照並顯示確認界面 ----------
-120
-captureBtn.addEventListener(138
-  ("click", () => {
+captureBtn.addEventList  ("click", () => {
   if (currentIndex >= MAX_PHOTOS) return;
 
     const w = video.videoWidth;
