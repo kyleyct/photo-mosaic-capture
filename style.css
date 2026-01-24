@@ -69,6 +69,7 @@ button:disabled {
 #mosaicCanvas {
   width: 100%;
   max-width: 400px;
+    aspect-ratio: 2/3;
   display: block;
   margin: 8px auto 16px;
   background: #ddd;
