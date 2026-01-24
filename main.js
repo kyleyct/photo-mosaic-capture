@@ -18,6 +18,7 @@ const downloadMosaicBtn = document.getElementById("downloadMosaicBtn");
 const downloadAllPhotosBtn = document.getElementById("downloadAllPhotosBtn");
 const printOverlayBtn = document.getElementById("printOverlayBtn");
 const printOriginalBtn = document.getElementById("printOriginalBtn");
+const resetBtn = document.getElementById("resetBtn");
 
 const counterEl = document.getElementById("counter");
 const messageEl = document.getElementById("message");
@@ -118,16 +119,24 @@ captureBtn.addEventListener("click", () => {
 
   const w = video.videoWidth;
   const h = video.videoHeight;
-  photoCanvas.width = w;
-  photoCanvas.height = h;
-
   // 繪製影片畫面
-  photoCtx.drawImage(video, 0, 0, w, h);
-
+    // 獲取視頻尺寸
+  const w = video.videoWidth;
+  const h = video.videoHeight;
+  photoCanvas.width = 1800;  // 4R 照片橫向寬度 (6英寸 x 300 DPI)
+    photoCanvas.height = 1200; // 4R 照片橫向高度 (4英寸 x 300 DPI)
+    
+  // 繪製影片畫面，按比例縮放並置中
+  const scale = Math.min(1800/w, 1200/h);
+  const scaledW = w * scale;
+  const scaledH = h * scale;
+  const offsetX = (1800 - scaledW) / 2;
+  const offsetY = (1200 - scaledH) / 2;
+  photoCtx.drawImage(video, offsetX, offsetY, scaledW, scaledH);
   // 繪製 overlay
   photoCtx.globalAlpha = OVERLAY_ALPHA;
   const overlay = overlays[currentIndex];
-  const drawW = Math.min(w, h);
+    const drawW = Math.min(1800, 1200);  // 使用固定的 4R 尺寸const drawW 
   const drawH = drawW;
   const dx = (w - drawW) / 2;
   const dy = (h - drawH) / 2;
@@ -308,6 +317,29 @@ menuBtn.addEventListener("click", () => {
 window.addEventListener("click", (event) => {
   if (!event.target.matches(".btn-menu")) {
     if (menuDropdown.classList.contains("show")) {
+
+      // ---------- 重置所有資料 ----------
+resetBtn.addEventListener("click", () => {
+  if (confirm("確定要重置所有資料嗎？這將會刪除所有已拍攝的照片。")) {
+    // 清除 localStorage
+    localStorage.removeItem('photoMosaicData');
+    
+    // 重置變數
+    photos = [];
+    currentIndex = 0;
+    overlays = [];
+    
+    // 重置 UI
+    counterEl.textContent = '0 / 100';
+    messageEl.textContent = '';
+    
+    // 清空馬賽克預覽
+    mosaicCtx.clearRect(0, 0, mosaicCanvas.width, mosaicCanvas.height);
+    
+    // 重新載入頁面
+    location.reload();
+  }
+});
       menuDropdown.classList.remove("show");
     }
   }
