@@ -73,6 +73,7 @@ button:disabled {
   display: block;
   margin: 8px auto 16px;
   background: #ddd;
+  }
 
 /* 確認界面樣式 */
 .confirmation {
@@ -159,6 +160,10 @@ button:disabled {
   border-radius: 4px;
   margin-top: 5px;
 }
+
+69
+69
+
 
 .menu-dropdown.show {
   display: block;
