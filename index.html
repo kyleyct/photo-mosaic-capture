@@ -8,11 +8,19 @@
 </head>
 <body>
   <div class="app">
-    <h1>齊齊砌掂佢！</h1>
-    <div class="preview">
-      <video id="video" autoplay playsinline></video>
-      <canvas id="photoCanvas"></canvas>
+    <h1>齊齊砌搂佢！</h1>
+        <div class="instructions">
+      <p><strong>使用說明：</strong></p>
+      <ol>
+        <li>準備好您的笑容</li>
+        <li>按下「拍照（下一格）」</li>
+        <li>確認圖片</li>
+        <li>（電腦會自動儲存圖片，如沒有，請協助按save）</li>
+        <li>（電腦會跳出列印頁面，請按「列印」）</li>
+      </ol>
     </div>
+      <video id="video" autoplay playsinline></video>
+      <canvas id="photoCanvas"></canvas>    
 
     <!-- 確認界面 -->
     <div id="confirmation" class="confirmation" style="display: none;">
@@ -41,6 +49,7 @@
         <button id="downloadAllPhotosBtn" disabled>下載所有照片</button>
                 <button id="printOverlayBtn" disabled>列印 Overlay</button>
         <button id="printOriginalBtn" disabled>列印照片原圖</button>
+              <button id="resetBtn" disabled>🗑️ 重置所有資料</button>
       </div>
     </div>
 
