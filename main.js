@@ -115,6 +115,30 @@ acceptBtn.addEventListener("click", () => {
 
   // 更新馬賽克預覽
   updateMosaicPreview();
+  
+  // 自動下載和列印照片
+  const row = Math.floor((currentIndex - 1) / COLS) + 1;
+  const col = ((currentIndex - 1) % COLS) + 1;
+  
+  // 下載照片
+  const a = document.createElement("a");
+  a.href = currentCapturedPhoto;
+  a.download = `photo-row-${row}-col-${col}.jpg`;
+  a.click();
+  
+  // 自動列印照片
+  const printWindow = window.open("", "_blank");
+  printWindow.document.write("<html><head><title>列印照片</title>");
+  printWindow.document.write("<style>body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; } img { max-width: 100%; max-height: 100%; }</style>");
+  printWindow.document.write("</head><body>");
+  printWindow.document.write(`<img src="${currentCapturedPhoto}" />`);
+  printWindow.document.write("</body></html>");
+  printWindow.document.close();
+  printWindow.focus();
+  setTimeout(() => {
+    printWindow.print();
+    printWindow.close();
+  }, 500);
 
   // 隱藏確認界面
   confirmationEl.style.display = "none";
