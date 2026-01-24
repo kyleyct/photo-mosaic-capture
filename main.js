@@ -114,16 +114,14 @@ startCameraBtn.addEventListener("click", async () => {
 });
 
 // ---------- 拍照並顯示確認界面 ----------
-captureBtn.addEventListener("click", () => {
+120
+("click", () => {
   if (currentIndex >= MAX_PHOTOS) return;
 
-  const w = video.videoWidth;
-  const h = video.videoHeight;
-  // 繪製影片畫面
-    // 獲取視頻尺寸
-  const w = video.videoWidth;
-  const h = video.videoHeight;
-  photoCanvas.width = 1800;  // 4R 照片橫向寬度 (6英寸 x 300 DPI)
+    const w = video.videoWidth;
+      const h = video.videoHeight;
+        // 繪製影片畫面
+          photoCanvas.width = 1800; // 4R 照片橫向寬度 (6英寸 x 300 DPI)
     photoCanvas.height = 1200; // 4R 照片橫向高度 (4英寸 x 300 DPI)
     
   // 繪製影片畫面，按比例縮放並置中
