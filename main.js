@@ -143,6 +143,7 @@ acceptBtn.addEventListener("click", () => {
   // 隱藏確認界面
   confirmationEl.style.display = "none";
   currentCapturedPhoto = null;
+    capturedPreview.src = ""; // 清空預覽圖片，顯示視頻
 
   if (currentIndex >= MAX_PHOTOS) {
     captureBtn.disabled = true;
@@ -159,6 +160,7 @@ rejectBtn.addEventListener("click", () => {
   // 不儲存照片，重新拍攝
   confirmationEl.style.display = "none";
   currentCapturedPhoto = null;
+    capturedPreview.src = ""; // 清空預覽圖片，顯示視頻
   captureBtn.disabled = false;
   messageEl.textContent = "照片已取消，請重新拍攝。";
 });
