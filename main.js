@@ -33,7 +33,7 @@ function loadOverlays() {
       // 檔名依你的實際情況修改：
 const row = Math.floor(i / COLS) + 1;
       const col = (i % COLS) + 1;
-      img.src = `overlays/row-${row}-column-${col}.jpg`;      img.src = `overlays/overlay-${num}.jpg`;
+      img.src = `overlays/row-${row}-column-${col}.png`;      img.src = `overlays/overlay-${num}.png`;
 
       img.onload = () => {
         
@@ -181,7 +181,7 @@ function buildMosaic() {
 // ---------- 下載馬賽克 ----------
 function downloadMosaic() {
   const link = document.createElement("a");
-  link.download = "mosaic.jpg";
+  link.download = "mosaic.png";
   link.href = mosaicCanvas.toDataURL("image/jpeg", 0.9);
   link.click();
 }
