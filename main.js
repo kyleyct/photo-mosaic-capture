@@ -34,6 +34,40 @@ let currentIndex = 0;
 let photos = []; // 儲存所有被接受的照片
 let currentCapturedPhoto = null; // 暫存當前拍攝的照片
 
+// ========== localStorage 功能 ==========
+// 從 localStorage 載入資料
+function loadFromLocalStorage() {
+  const saved = localStorage.getItem('photoMosaicData');
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      photos = data.photos || [];
+      currentIndex = data.currentIndex || 0;
+      overlays = data.overlays || [];
+      
+      // 更新UI
+      counterEl.textContent = `${currentIndex} / ${MAX_PHOTOS}`;
+      
+      // 如果有照片，重新繪製馬賽克
+      if (photos.length > 0) {
+        updateMosaicPreview();
+      }
+    } catch (e) {
+      console.error('載入資料失敗:', e);
+    }
+  }
+}
+
+// 儲存到 localStorage
+function saveToStorage() {
+  const data = {
+    photos: photos,
+    currentIndex: currentIndex,
+    overlays: overlays
+  };
+  localStorage.setItem('photoMosaicData', JSON.stringify(data));
+}
+
 // ---------- 初始化：載入 100 張 overlay ----------
 function loadOverlays() {
   return new Promise((resolve, reject) => {
@@ -117,6 +151,7 @@ acceptBtn.addEventListener("click", () => {
 
   // 更新馬賽克預覽
   updateMosaicPreview();
+    saveToStorage();  // 儲存到 localStorage
   
   // 自動下載和列印照片
   const row = Math.floor((currentIndex - 1) / COLS) + 1;
