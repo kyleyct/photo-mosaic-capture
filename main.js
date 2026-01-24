@@ -36,7 +36,8 @@ const row = Math.floor(i / COLS) + 1;
       img.src = `overlays/row-${row}-column-${col}.png`;
 
       img.onload = () => {
-        
+
+        loaded++;
         if (loaded === MAX_PHOTOS) resolve();
       };
       img.onerror = (e) => {
