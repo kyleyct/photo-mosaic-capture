@@ -25,6 +25,8 @@ const confirmationEl = document.getElementById("confirmation");
 const acceptBtn = document.getElementById("acceptBtn");
 const rejectBtn = document.getElementById("rejectBtn");
 const capturedPreview = document.getElementById("capturedPreview");
+const menuBtn = document.getElementById("menuBtn");
+const menuDropdown = document.getElementById("menuDropdown");
 
 let stream = null;
 let overlays = [];
@@ -149,6 +151,9 @@ acceptBtn.addEventListener("click", () => {
     captureBtn.disabled = true;
     buildMosaicBtn.disabled = false;
     messageEl.textContent = "已完成 100 張，可以生產馬賽克。";
+      
+  // 儲存到 localStorage
+  saveToLocalStorage();
   } else {
     captureBtn.disabled = false;
     messageEl.textContent = `已拍攝 ${currentIndex} 張。`;
@@ -258,3 +263,54 @@ printOriginalBtn.addEventListener("click", () => {
   alert("此功能需要儲存無 overlay 的原始照片。目前版本只儲存了含 overlay 的照片。");
   // 如果需要列印原圖，需要在拍照時額外儲存一份不含 overlay 的照片
 });
+
+// ---------- 選單功能 ----------
+menuBtn.addEventListener("click", () => {
+  menuDropdown.classList.toggle("show");
+});
+
+// 點擊選單外部時關閉選單
+window.addEventListener("click", (event) => {
+  if (!event.target.matches(".btn-menu")) {
+    if (menuDropdown.classList.contains("show")) {
+      menuDropdown.classList.remove("show");
+    }
+  }
+});
+
+// ---------- localStorage 持久化 ----------
+function saveToLocalStorage() {
+  const data = {
+    photos: photos,
+    currentIndex: currentIndex
+  };
+  localStorage.setItem("photoMosaicData", JSON.stringify(data));
+}
+
+function loadFromLocalStorage() {
+  const saved = localStorage.getItem("photoMosaicData");
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      photos = data.photos || [];
+      currentIndex = data.currentIndex || 0;
+      
+      // 更新顯示
+      counterEl.textContent = `${currentIndex} / ${MAX_PHOTOS}`;
+      
+      if (currentIndex > 0) {
+        messageEl.textContent = `已恢復 ${currentIndex} 張照片。`;
+        updateMosaicPreview();
+        
+        if (currentIndex >= MAX_PHOTOS) {
+          buildMosaicBtn.disabled = false;
+        }
+      }
+    } catch (e) {
+      console.error("無法載入儲存的數據:", e);
+    }
+  }
+}
+
+// 頁面載入時恢復數據
+window.addEventListener("DOMContentLoaded", loadFromLocalStorage);
